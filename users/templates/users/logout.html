@@ -1,0 +1,10 @@
+{% extends 'fitlog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div class="">
+    <h3>You Have Been Logged Out.</h3>
+    <div class="border-top pt-3">
+      <small class="text-muted"><a  class = "ml-1" href="{% url 'login' %}">Log In</a></small>
+    </div>
+  </div>
+{% endblock content%}
