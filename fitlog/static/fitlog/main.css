@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap');
+
+body{
+  background: black;
+  color: white;
+  margin-top:5rem;
+
+}
+
+.enter{
+  margin-top:30%;
+}
+
+.logo{
+  font-family: 'Oswald', sans-serif;
+}
+
+.content-section {
+  padding: 10px 20px;
+  border: 1px solid white;
+  border-radius: 3px;
+  margin: auto;
+  margin-bottom: 20px;
+
+}
+
+.alert-section{
+  margin: auto;
+}
+
+table td a{
+  color: white;
+  text-decoration: none;
+}
+
+
+
+}

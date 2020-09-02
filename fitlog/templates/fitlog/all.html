@@ -1,0 +1,68 @@
+{% extends 'fitlog/base.html' %}
+{%block content%}
+
+{% regroup workouts by date_of as dateof %}
+  {%for date_of in dateof %}
+  <table class="table table-hover table-bordered table-striped table-dark text-center mt-3">
+    <caption>Full Workout for {{date_of.grouper}}</caption>
+    <thead>
+      <th scope="col">{{date_of.grouper}}</th>
+    </thead>
+  <thead>
+    <tr>
+      <th scope="col">Body Part</th>
+      <th scope="col">Exercise</th>
+      <th scope="col">Weight(lbs)</th>
+      <th scope="col">Sets</th>
+      <th scope="col">Reps</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for workout in date_of.list %}
+    <tr>
+      <td><a href="{% url 'log-detail' workout.id %}">{{workout.body_part}}</a></td>
+      <td>{{workout.exercise}}</td>
+      <td>{{workout.weight}}</td>
+      <td>{{workout.sets}}</td>
+      <td>{{workout.reps}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endfor %}
+{% if is_paginated %}
+
+      {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+        <a class = "btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a class = "btn btn-info mb-4" href="?page={{ num }}">{{num}}</a>
+          {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              <a class = "btn btn-outine-info mb-4" href="?page={{ num }}">{{num}}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a class = "btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+
+    {% endif %}
+    {% if workouts.count == 0 %}
+    <div class="mt-5 d-flex justify-content-center enter">
+      <svg width="5em" height="5em" viewBox="0 0 16 16" class="bi bi-file-text-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M12 1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zM5 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1H5z"/>
+    </svg>
+    </div>
+    <div class="text-center">
+    <h3>Logs are compiled by date, showing complete workout.</h3>
+    <small class="text-muted"> Go Log some workouts</small>
+    </div>
+
+    {%endif%}
+
+
+{%endblock%}
